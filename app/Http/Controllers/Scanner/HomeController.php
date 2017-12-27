@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Scanner;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -32,18 +33,28 @@ class HomeController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Scanner index page.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param Request $request
+     * @return view
      */
     protected function index()
     {
-        echo 'index';
-        /*return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);*/
+        return view('scanner.index', [
+            'audio' => '',
+        ]);
+    }
+
+    /**
+     * Get scanner value and play audio.
+     *
+     * @param Request $request
+     * @return view
+     */
+    protected function store(Request $request)
+    {
+        return view('scanner.index', [
+            'audio' => url('storage/voice/' . $request->input('scan') . '.mp3'),
+        ]);
     }
 }
