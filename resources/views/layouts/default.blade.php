@@ -7,6 +7,9 @@
 
         <title>@yield('title')</title>
 
+        <link href="{!! asset('css/app.css') !!}" media="all" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>
+
     </head>
     <body>
         <div class="container">
