@@ -9,11 +9,7 @@ class VoiceService
 {
     public function processVoiceEn($ttsResponse, $request)
     {
-        $voice = new Voice;
-        $voice = $voice->where('text_en', $request->input('en'))->first();
-        if (null != $voice) {
-            $voice->delete();
-        }
+        self::checkExist($request);
         $voice = new Voice;
         $voice->text_en = $request->input('en');
         $voice->save();
@@ -35,5 +31,16 @@ class VoiceService
         fclose($fp);
         $voice->file_tw = $voice->id . '_tw.mp3';
         $voice->save();
+    }
+
+    protected static function checkExist($request)
+    {
+        $voice = new Voice;
+        $voice = $voice->where('text_en', $request->input('en'))->first();
+        if (null != $voice) {
+            unlink('storage/voice/' . $voice->id . '_en.mp3');
+            unlink('storage/voice/' . $voice->id . '_tw.mp3');
+            $voice->delete();
+        }
     }
 }
