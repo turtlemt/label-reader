@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Voice;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\TTSService;
+use App\Services\VoiceService;
 
 class BuildController extends Controller
 {
@@ -22,14 +24,21 @@ class BuildController extends Controller
      * @var string
      */
 
+    /** @var TTSService */
+    protected $ttsService;
+
+    /** @var VoiceService */
+    protected $voiceService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TTSService $ttsService, VoiceService $voiceService)
     {
-
+        $this->ttsService = $ttsService;
+        $this->voiceService = $voiceService;
     }
 
     /**
@@ -51,9 +60,38 @@ class BuildController extends Controller
      */
     protected function store(Request $request)
     {
-        var_dump($request->all());exit;
+        $storeDone = false;
+        $response = $this->ttsService->getTTS($request->input('en'), 'en');
+        if ($response) {
+            $voice = $this->voiceService->processVoiceEn($response, $request);
+            $response = $this->ttsService->getTTS($request->input('tw'), 'zh-tw');
+            if ($response) {
+                $voice = $this->voiceService->processVoiceTw($voice, $response, $request);
+            }
+            $storeDone = true;
+        }
+
+
+
+        exit;
         return view('voice.buildindex', [
             'audio' => url('storage/voice/' . $request->input('scan') . '.mp3'),
         ]);
+    }
+
+    /**
+     * Get scanner value and play audio.
+     *
+     * @param Request $request
+     * @return array
+     */
+    protected static function setTTSData()
+    {
+        $request = Request();
+        $TTSData = array(
+            'en' => $request->input('en'),
+            'tw' => $request->input('tw'),
+        );
+        return $TTSData;
     }
 }
