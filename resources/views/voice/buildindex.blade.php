@@ -4,7 +4,7 @@
 @section('title', 'Scanner')
 
 @section('content')
-    <form method="post" target="/">
+    <form method="post">
         {{ csrf_field() }}
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">English</span>

@@ -72,7 +72,9 @@ class BuildController extends Controller
         }
 
         if ($storeDone) {
-            $alert = array('success' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . 'saved!'));
+            $alert = array('success' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . ' saved!'));
+        } else {
+            $alert = array('danger' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . ' save fail! Please try again.'));
         }
 
         return view('voice.buildindex', [
