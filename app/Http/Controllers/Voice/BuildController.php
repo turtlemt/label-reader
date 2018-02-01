@@ -71,11 +71,12 @@ class BuildController extends Controller
             $storeDone = true;
         }
 
+        if ($storeDone) {
+            $alert = array('success' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . 'saved!'));
+        }
 
-
-        exit;
         return view('voice.buildindex', [
-            'audio' => url('storage/voice/' . $request->input('scan') . '.mp3'),
+            'alert' => $alert,
         ]);
     }
 
