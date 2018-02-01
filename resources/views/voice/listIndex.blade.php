@@ -31,7 +31,7 @@
 
             <tbody>
                 <tr>
-                    <th>{{$voice->id}}</th>
+                    <th>{{$voice->id}}<?php echo DNS1D::getBarcodeHTML('10000' . $voice->id, 'C128A');?></th>
                     <th>{{$voice->text_en}}</th>
                     <th>{{$voice->text_tw}}</th>
                     <th>

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\TTSService;
 use App\Services\VoiceService;
-use \Milon\Barcode\DNS1D;
 
 class BuildController extends Controller
 {

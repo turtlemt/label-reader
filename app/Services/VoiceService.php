@@ -46,6 +46,23 @@ class VoiceService
         return $voices;
     }
 
+    public function getVoice($voiceId)
+    {
+        $voice = new Voice;
+        return $voices = $voice->where('id', $voiceId)->first();
+    }
+
+    public function setDelay($voice)
+    {
+        $length = strlen($voice->text_en);
+        if ($length > 10) {
+            $voice->delay = 3000;
+        } else {
+            $voice->delay = 2000;
+        }
+        return $voice;
+    }
+
     protected static function checkExist($request)
     {
         $voice = new Voice;
