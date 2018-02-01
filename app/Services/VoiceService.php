@@ -31,12 +31,19 @@ class VoiceService
         fclose($fp);
         $voice->file_tw = $voice->id . '_tw.mp3';
         $voice->save();
+
+        return $voice;
     }
 
     public function getAllVoices()
     {
         $voice = new Voice;
-        return $voice->all();
+        $voices = $voice->all();
+        foreach ($voices as $key => $voice) {
+            $voices[$key]->barcode = config('app.barcode_starter') + $voice->id;
+        }
+
+        return $voices;
     }
 
     protected static function checkExist($request)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\TTSService;
 use App\Services\VoiceService;
+use \Milon\Barcode\DNS1D;
 
 class BuildController extends Controller
 {
@@ -67,6 +68,9 @@ class BuildController extends Controller
             $response = $this->ttsService->getTTS($request->input('tw'), 'zh-tw');
             if ($response) {
                 $voice = $this->voiceService->processVoiceTw($voice, $response, $request);
+                /*$fp = fopen('storage/barcode/' . $voice->id . '.png', 'w');
+                fwrite($fp, DNS1D::getBarcodePNG($voice->id, "C128A"));
+                fclose($fp);*/
             }
             $storeDone = true;
         }
