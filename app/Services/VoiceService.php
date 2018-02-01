@@ -33,6 +33,12 @@ class VoiceService
         $voice->save();
     }
 
+    public function getAllVoices()
+    {
+        $voice = new Voice;
+        return $voice->all();
+    }
+
     protected static function checkExist($request)
     {
         $voice = new Voice;

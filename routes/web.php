@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::resource('scanner', 'Scanner\HomeController');
 Route::resource('voicebuild', 'Voice\BuildController');
+Route::resource('voicelist', 'Voice\ListController');

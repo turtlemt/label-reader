@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Voice;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\TTSService;
 use App\Services\VoiceService;
 
-class BuildController extends Controller
+class ListController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Build Controller
+    | List Controller
     |--------------------------------------------------------------------------
     |
     |
@@ -23,10 +22,6 @@ class BuildController extends Controller
      *
      * @var string
      */
-
-    /** @var TTSService */
-    protected $ttsService;
-
     /** @var VoiceService */
     protected $voiceService;
 
@@ -35,9 +30,8 @@ class BuildController extends Controller
      *
      * @return void
      */
-    public function __construct(TTSService $ttsService, VoiceService $voiceService)
+    public function __construct(VoiceService $voiceService)
     {
-        $this->ttsService = $ttsService;
         $this->voiceService = $voiceService;
     }
 
@@ -49,7 +43,10 @@ class BuildController extends Controller
      */
     protected function index()
     {
-        return view('voice.buildIndex');
+        $voices = $this->voiceService->getAllVoices();
+        return view('voice.listIndex', [
+            'voices' => $voices,
+        ]);
     }
 
     /**
@@ -77,7 +74,7 @@ class BuildController extends Controller
             $alert = array('danger' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . ' save fail! Please try again.'));
         }
 
-        return view('voice.buildIndex', [
+        return view('voice.buildindex', [
             'alert' => $alert,
         ]);
     }
