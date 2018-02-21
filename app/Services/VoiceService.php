@@ -46,6 +46,17 @@ class VoiceService
         return $voices;
     }
 
+    public function getVoicesById($ids)
+    {
+        $voice = new Voice;
+        $voices = $voice->find($ids);
+        foreach ($voices as $key => $voice) {
+            $voices[$key]->barcode = config('app.barcode_starter') + $voice->id;
+        }
+
+        return $voices;
+    }
+
     public function getVoice($voiceId)
     {
         $voice = new Voice;

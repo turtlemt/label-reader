@@ -55,43 +55,12 @@ class ListController extends Controller
      * @param Request $request
      * @return view
      */
-    protected function store(Request $request)
+    protected function create(Request $request)
     {
-        $storeDone = false;
-        $response = $this->ttsService->getTTS($request->input('en'), 'en');
-        if ($response) {
-            $voice = $this->voiceService->processVoiceEn($response, $request);
-            $response = $this->ttsService->getTTS($request->input('tw'), 'zh-tw');
-            if ($response) {
-                $voice = $this->voiceService->processVoiceTw($voice, $response, $request);
-            }
-            $storeDone = true;
-        }
+        $voices = $this->voiceService->getVoicesById($request->input('checklabel'));
 
-        if ($storeDone) {
-            $alert = array('success' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . ' saved!'));
-        } else {
-            $alert = array('danger' => array('show' => '', 'content' => $request->input('en') . ' ' . $request->input('tw') . ' save fail! Please try again.'));
-        }
-
-        return view('voice.buildindex', [
-            'alert' => $alert,
+        return view('voice.listLabel', [
+            'voices' => $voices,
         ]);
-    }
-
-    /**
-     * Get scanner value and play audio.
-     *
-     * @param Request $request
-     * @return array
-     */
-    protected static function setTTSData()
-    {
-        $request = Request();
-        $TTSData = array(
-            'en' => $request->input('en'),
-            'tw' => $request->input('tw'),
-        );
-        return $TTSData;
     }
 }
