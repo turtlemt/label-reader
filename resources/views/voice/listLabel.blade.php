@@ -22,7 +22,9 @@
                         <tr>
                         @endif
                             <th>
-                                <div><?php echo DNS1D::getBarcodeHTML($voice->barcode, 'C128A', 1.6, 33);?></div>
+                                <div>
+                                    <img src="data:image/png;base64,<?php echo DNS1D::getBarcodePNG($voice->barcode, "C128",2.5,38,array(1,1,1), true);?>" alt="barcode"/>
+                                </div>
                                 <div>{{$voice->text_en}}&nbsp;&nbsp;{{$voice->text_tw}}
                             </th>
                         @if (3 === $key % 4)

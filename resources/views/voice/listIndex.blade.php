@@ -40,7 +40,7 @@
                 <tbody>
                     <tr>
                         <th><input type="checkbox" name="checklabel[]" value="{{$voice->id}}"></th>
-                        <th>{{$voice->id}}<?php echo DNS1D::getBarcodeHTML($voice->barcode, 'C128A', 1, 33);?></th>
+                        <th>{{$voice->id}}<?php echo DNS1D::getBarcodeHTML($voice->barcode, 'C128', 1, 33);?></th>
                         <th>{{$voice->text_en}}</th>
                         <th>{{$voice->text_tw}}</th>
                         <th>
