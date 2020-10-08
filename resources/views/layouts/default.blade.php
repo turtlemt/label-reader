@@ -40,8 +40,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="voicebuild">EN/TW Label</a></li>
-                        <li><a href="voicebuild">TW Label</a></li>
+                        <li><a href="voicebuild">Create Label</a></li>
                         <li><a href="voicelist">Print Label</a></li>
                         <li><a href="scanner">Scan</a></li>
                     </ul>
