@@ -1,7 +1,7 @@
 
 @extends('layouts.default')
 
-@section('title', 'Scanner')
+@section('title', 'Builder')
 
 @section('content')
     <form method="post">

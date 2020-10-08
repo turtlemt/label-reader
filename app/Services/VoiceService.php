@@ -10,15 +10,21 @@ class VoiceService
     public function processVoiceEn($ttsResponse, $request)
     {
         self::checkExist($request);
-        $voice = new Voice;
-        $voice->text_en = $request->input('en');
-        $voice->save();
+        if (!$ttsResponse) {
+            $voice = new Voice;
+            //$voice->text_en = $request->input('en');
+            $voice->save();
+        } else {
+            $voice = new Voice;
+            $voice->text_en = $request->input('en');
+            $voice->save();
 
-        $fp = fopen('storage/voice/' . $voice->id . '_en.mp3', 'w');
-        fwrite($fp, $ttsResponse);
-        fclose($fp);
-        $voice->file_en = $voice->id . '_en.mp3';
-        $voice->save();
+            $fp = fopen('storage/voice/' . $voice->id . '_en.mp3', 'w');
+            fwrite($fp, $ttsResponse);
+            fclose($fp);
+            $voice->file_en = $voice->id . '_en.mp3';
+            $voice->save();
+        }
 
         return $voice;
     }

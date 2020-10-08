@@ -1,7 +1,7 @@
 
 @extends('layouts.default')
 
-@section('title', 'Scanner')
+@section('title', 'List')
 
 @section('content')
     <form method="get" action="/voicelist/create">

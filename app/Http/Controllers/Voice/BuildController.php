@@ -62,15 +62,13 @@ class BuildController extends Controller
     {
         $storeDone = false;
         $response = $this->ttsService->getTTS($request->input('en'), 'en');
+        $voice = $this->voiceService->processVoiceEn($response, $request);
+        $response = $this->ttsService->getTTS($request->input('tw'), 'zh-tw');
         if ($response) {
-            $voice = $this->voiceService->processVoiceEn($response, $request);
-            $response = $this->ttsService->getTTS($request->input('tw'), 'zh-tw');
-            if ($response) {
-                $voice = $this->voiceService->processVoiceTw($voice, $response, $request);
-                /*$fp = fopen('storage/barcode/' . $voice->id . '.png', 'w');
-                fwrite($fp, DNS1D::getBarcodePNG($voice->id, "C128A"));
-                fclose($fp);*/
-            }
+            $voice = $this->voiceService->processVoiceTw($voice, $response, $request);
+            /*$fp = fopen('storage/barcode/' . $voice->id . '.png', 'w');
+            fwrite($fp, DNS1D::getBarcodePNG($voice->id, "C128A"));
+            fclose($fp);*/
             $storeDone = true;
         }
 

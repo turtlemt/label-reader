@@ -1,7 +1,7 @@
 
 @extends('layouts.default')
 
-@section('title', 'Scanner')
+@section('title', 'List')
 
 @section('content')
     <form method="get" action="/voicelist/create">
@@ -32,7 +32,8 @@
                             <th>ID</th>
                             <th>英</th>
                             <th>中</th>
-                            <th>Play</th>
+                            <th>EN Play</th>
+                            <th>TW Play</th>
                         </tr>
                     </thead>
                 @endif
@@ -46,6 +47,12 @@
                         <th>
                             <audio controls>
                                 <source src="storage/voice/{{$voice->file_en}}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </th>
+                        <th>
+                            <audio controls>
+                                <source src="storage/voice/{{$voice->file_tw}}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                         </th>
