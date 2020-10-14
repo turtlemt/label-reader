@@ -10,15 +10,17 @@
         <button type="submit">Submit</button>
     </form>
     @if (isset($voice))
-    <p>{{$voice->text_en}} {{$voice->text_tw}}</p>
-    <audio controls autoplay>
-        <source src="storage/voice/{{$voice->file_en}}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <audio controls onloadeddata="var audioPlayer = this; setTimeout(function() { audioPlayer.play(); }, {{$voice->delay}})">
-        <source src="storage/voice/{{$voice->file_tw}}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+        <p>{{$voice->text_en}} {{$voice->text_tw}}</p>
+        @if ('' != $voice->file_en)
+        <audio controls autoplay>
+            <source src="storage/voice/{{$voice->file_en}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        @endif
+        <audio controls onloadeddata="var audioPlayer = this; setTimeout(function() { audioPlayer.play(); }, {{$voice->delay}})">
+            <source src="storage/voice/{{$voice->file_tw}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     @endif
 
     <script type='text/javascript'>
